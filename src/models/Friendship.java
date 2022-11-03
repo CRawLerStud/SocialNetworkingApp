@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Friendship extends Entity<Long>{
     private final User user1;
     private final User user2;
@@ -15,5 +17,25 @@ public class Friendship extends Entity<Long>{
 
     public User getUser2() {
         return user2;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(this.getId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return true;
+        if(o == null || getClass() != o.getClass())
+            return false;
+        Friendship student = (Friendship) o;
+        return Objects.equals(student.getId(), this.getId());
+    }
+
+    @Override
+    public String toString() {
+        return this.getId() + ";" + this.getUser1() + ";" + this.getUser2();
     }
 }

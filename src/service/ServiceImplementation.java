@@ -8,8 +8,8 @@ import validators.Validator;
 
 public class ServiceImplementation<ID, E extends Entity<ID>> implements Service<ID, E>{
 
-    Validator<E> validator;
-    Repository<ID, E> repository;
+    protected Validator<E> validator;
+    protected Repository<ID, E> repository;
 
     public ServiceImplementation(Validator<E> validator, Repository<ID, E> repository) {
         this.validator = validator;

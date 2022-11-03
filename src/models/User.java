@@ -1,5 +1,8 @@
 package models;
 
+import repo.FriendsList;
+import repo.RepositoryException;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
@@ -8,11 +11,13 @@ public class User extends Entity<Long>{
     private String lastname;
     private String surname;
     private LocalDate birthDate;
+    private final FriendsList friends;
 
     public User(String lastname, String surname, LocalDate birthDate) {
         this.lastname = lastname;
         this.surname = surname;
         this.birthDate = birthDate;
+        this.friends = new FriendsList();
     }
 
     public String getLastname() {
@@ -37,6 +42,22 @@ public class User extends Entity<Long>{
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Iterable<User> allFriends(){
+        return friends.findAll();
+    }
+
+    public void addFriend(User newFriend) throws RepositoryException{
+        friends.save(newFriend);
+    }
+
+    public User removeFriend(Long ID) throws RepositoryException{
+        return friends.delete(ID);
+    }
+
+    public User findFriend(Long ID) throws RepositoryException{
+        return friends.findOne(ID);
     }
 
     public int getYears(){
