@@ -1,7 +1,7 @@
 package service;
 
 import models.User;
-import repo.UserFileRepository;
+import repo.users.UserFileRepository;
 import validators.UserValidator;
 
 public class UserService extends ServiceImplementation<Long, User>{

@@ -3,13 +3,13 @@ package ui;
 import controller.Controller;
 import models.Friendship;
 import models.User;
-import repo.RepositoryException;
-import validators.ValidationException;
-
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
+import repo.RepositoryException;
+import utils.CommunityUtils;
+import validators.ValidationException;
 
 public class UserInterface {
 
@@ -49,6 +49,46 @@ public class UserInterface {
     }
 
     private void communitiesMenu() {
+        while(true){
+            try{
+                printCommunitiesMenu();
+                System.out.print("Option: ");
+                int option = Integer.parseInt(scanner.nextLine());
+                switch(option){
+                    case 0:
+                        return;
+                    case 1:
+                        discoverCommunitiesUI();
+                        break;
+                    case 2:
+                        mostSociableCommunityUI();
+                        break;
+                    default:
+                        System.out.println("Invalid option!");
+                }
+            }
+            catch(NumberFormatException error){
+                System.out.println(error.getMessage());
+            }
+        }
+    }
+
+    private void mostSociableCommunityUI() {
+        List<User> community = controller.mostSociableCommunity();
+        System.out.println("The most sociable community: ");
+        System.out.println(community);
+    }
+
+    private void discoverCommunitiesUI() {
+        List<List<User>> result = controller.discoverCommunities();
+        System.out.println(result.size() + " communities found!");
+        result.forEach(System.out::println);
+    }
+
+    private void printCommunitiesMenu() {
+        System.out.println("1. Discover Communities");
+        System.out.println("2. Most Sociable Community");
+        System.out.println("0. Back");
     }
 
     private void usersMenu() {
@@ -78,6 +118,9 @@ public class UserInterface {
                             System.out.println(error.getMessage());
                         }
                         break;
+                    case 4:
+                        printAllUsersFriendsUI();
+                        break;
                     default:
                         System.out.println("Invalid option!");
                 }
@@ -86,6 +129,11 @@ public class UserInterface {
                 System.out.println(error.getMessage());
             }
         }
+    }
+
+    private void printAllUsersFriendsUI() {
+        for(User user : controller.allUsers())
+            System.out.println(user.allFriends());
     }
 
     private void printFriendshipsMenu() {
@@ -178,6 +226,7 @@ public class UserInterface {
         System.out.println("1. Print users");
         System.out.println("2. Add user");
         System.out.println("3. Delete user");
+        System.out.println("4. All Users with their Friends");
         System.out.println("0. Back");
     }
 

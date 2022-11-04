@@ -1,6 +1,8 @@
-package repo;
+package repo.users;
 
 import models.User;
+import repo.InMemoryRepository;
+import repo.RepositoryException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +19,9 @@ public class UserFileRepository extends InMemoryRepository<Long, User> {
         loadData();
     }
 
+    /**
+     * Loads data from the filename
+     */
     private void loadData() {
         Path path = Paths.get(filename);
         try{
@@ -28,7 +33,7 @@ public class UserFileRepository extends InMemoryRepository<Long, User> {
                 super.save(user);
             }
         }
-        catch(IOException|RepositoryException e) {
+        catch(IOException | RepositoryException e) {
             System.err.println("Error while reading from file!");
             e.printStackTrace();
         }
