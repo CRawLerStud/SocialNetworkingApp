@@ -156,7 +156,8 @@ public class UserInterface {
     private void printFriendshipsMenu() {
         System.out.println("1. Print friendships");
         System.out.println("2. Add friendship");
-        System.out.println("3. Delete friendship");
+        System.out.println("3. Find friendship");
+        System.out.println("4. Delete friendship");
         System.out.println("0. Back");
     }
 
@@ -186,6 +187,7 @@ public class UserInterface {
                     catch(RepositoryException| NumberFormatException error){
                         System.out.println(error.getMessage());
                     }
+                    break;
                 case 4:
                     try {
                         removeFriendshipUI();

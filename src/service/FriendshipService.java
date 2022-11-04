@@ -24,6 +24,11 @@ public class FriendshipService extends ServiceImplementation<Long, Friendship>{
         repository.removeUserFromFriends(user);
     }
 
+    /**
+     * Remove all user's friendships
+     * @param user the user that will have all the friendships removed
+     * @throws RepositoryException if the friendship is not existent
+     */
     public void removeUserFriendships(User user) throws RepositoryException{
         repository.removeUserFriendships(user);
     }

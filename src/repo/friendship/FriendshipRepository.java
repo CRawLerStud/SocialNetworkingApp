@@ -37,7 +37,12 @@ public class FriendshipRepository extends InMemoryRepository<Long, Friendship> {
      */
     @Override
     public Friendship delete(Long aLong) throws RepositoryException {
-        return super.delete(aLong);
+        Friendship removedFriendship = super.delete(aLong);
+        User user1 = removedFriendship.getUser1();
+        User user2 = removedFriendship.getUser2();
+        user1.removeFriend(user2.getId());
+        user2.removeFriend(user1.getId());
+        return removedFriendship;
     }
 
 

@@ -18,7 +18,7 @@ public class TestServiceLayer {
 
     public static void executeAll(){
         testUserService();
-        //testFriendshipService();
+        testFriendshipService();
         System.out.println("Service Layer Tests passed succesfully!");
     }
 
@@ -105,23 +105,6 @@ public class TestServiceLayer {
         }
         catch(RepositoryException error){
             assert(false);
-        }
-
-        try{
-            service.save(goodFriendship);
-            assert(user2.findFriend(1L) != null);
-            service.delete(1L);
-        }
-        catch(RepositoryException|ValidationException error){
-            assert(false);
-        }
-
-        try{
-            user2.findFriend(1L);
-            assert(false);
-        }
-        catch(RepositoryException r){
-            assert(true);
         }
     }
 
