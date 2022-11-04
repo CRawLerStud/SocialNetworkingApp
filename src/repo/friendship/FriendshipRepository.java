@@ -3,7 +3,6 @@ package repo.friendship;
 import models.Friendship;
 import models.User;
 import repo.InMemoryRepository;
-import repo.Repository;
 import repo.RepositoryException;
 
 import java.util.ArrayList;
@@ -38,14 +37,7 @@ public class FriendshipRepository extends InMemoryRepository<Long, Friendship> {
      */
     @Override
     public Friendship delete(Long aLong) throws RepositoryException {
-        Friendship deletedFriendship = super.delete(aLong);
-        /**
-        User user1 = deletedFriendship.getUser1();
-        User user2 = deletedFriendship.getUser2();
-        user1.removeFriend(user2.getId());
-        user2.removeFriend(user1.getId());
-         */
-        return deletedFriendship;
+        return super.delete(aLong);
     }
 
 
