@@ -23,5 +23,9 @@ public class FriendshipService extends ServiceImplementation<Long, Friendship>{
     public void removeUserFromFriends(User user) throws RepositoryException{
         repository.removeUserFromFriends(user);
     }
+
+    public void removeUserFriendships(User user) throws RepositoryException{
+        repository.removeUserFriendships(user);
+    }
 }
 

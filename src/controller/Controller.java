@@ -70,6 +70,7 @@ public class Controller {
     public User removeUser(Long ID) throws RepositoryException{
         User removedUser = users.findOne(ID);
         friendships.removeUserFromFriends(removedUser);
+        friendships.removeUserFriendships(removedUser);
         users.delete(ID);
         return removedUser;
     }

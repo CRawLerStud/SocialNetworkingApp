@@ -3,7 +3,11 @@ package repo.friendship;
 import models.Friendship;
 import models.User;
 import repo.InMemoryRepository;
+import repo.Repository;
 import repo.RepositoryException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FriendshipRepository extends InMemoryRepository<Long, Friendship> {
 
@@ -35,10 +39,12 @@ public class FriendshipRepository extends InMemoryRepository<Long, Friendship> {
     @Override
     public Friendship delete(Long aLong) throws RepositoryException {
         Friendship deletedFriendship = super.delete(aLong);
+        /**
         User user1 = deletedFriendship.getUser1();
         User user2 = deletedFriendship.getUser2();
         user1.removeFriend(user2.getId());
         user2.removeFriend(user1.getId());
+         */
         return deletedFriendship;
     }
 
@@ -53,5 +59,23 @@ public class FriendshipRepository extends InMemoryRepository<Long, Friendship> {
         Iterable<User> friends = user.allFriends();
         for(User friend : friends)
             friend.removeFriend(userID);
+    }
+
+    /**
+     * Remove all user's friendships
+     * @param user the user that will have all the friendships removed
+     * @throws RepositoryException if the friendship is not existent
+     */
+    public void removeUserFriendships(User user) throws RepositoryException{
+        List<Friendship> friendships = new ArrayList<>();
+        for(Friendship friendship : findAll()){
+            if(friendship.getUser1().equals(user) || friendship.getUser2().equals(user)) {
+                friendships.add(friendship);
+            }
+        }
+
+        for(Friendship friendship: friendships){
+            this.delete(friendship.getId());
+        }
     }
 }
