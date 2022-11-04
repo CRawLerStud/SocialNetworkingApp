@@ -3,13 +3,13 @@ package ui;
 import controller.Controller;
 import models.Friendship;
 import models.User;
+import repo.RepositoryException;
+import validators.ValidationException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
-import repo.RepositoryException;
-import utils.CommunityUtils;
-import validators.ValidationException;
 
 public class UserInterface {
 
@@ -112,13 +112,21 @@ public class UserInterface {
                         }
                         break;
                     case 3:
+                        try{
+                            searchUserUI();
+                        }
+                        catch(RepositoryException | NumberFormatException error){
+                            System.out.println(error.getMessage());
+                        }
+                        break;
+                    case 4:
                         try {
                             removeUserUI();
                         } catch (RepositoryException | NumberFormatException error) {
                             System.out.println(error.getMessage());
                         }
                         break;
-                    case 4:
+                    case 5:
                         printAllUsersFriendsUI();
                         break;
                     default:
@@ -131,9 +139,18 @@ public class UserInterface {
         }
     }
 
+    private void searchUserUI() throws RepositoryException{
+        System.out.print("User's ID: ");
+        Long ID = Long.parseLong(scanner.nextLine());
+        User foundUser = controller.findUser(ID);
+        System.out.println(foundUser);
+    }
+
     private void printAllUsersFriendsUI() {
-        for(User user : controller.allUsers())
+        for(User user : controller.allUsers()) {
+            System.out.println(user + " IS FRIEND WITH");
             System.out.println(user.allFriends());
+        }
     }
 
     private void printFriendshipsMenu() {
@@ -163,6 +180,13 @@ public class UserInterface {
                     }
                     break;
                 case 3:
+                    try{
+                        searchFriendshipUI();
+                    }
+                    catch(RepositoryException| NumberFormatException error){
+                        System.out.println(error.getMessage());
+                    }
+                case 4:
                     try {
                         removeFriendshipUI();
                     }
@@ -174,6 +198,13 @@ public class UserInterface {
                     System.out.println("Invalid option!");
             }
         }
+    }
+
+    private void searchFriendshipUI() throws RepositoryException{
+        System.out.print("Friendship ID: ");
+        Long ID = Long.parseLong(scanner.nextLine());
+        Friendship foundFriendship = controller.findFriendship(ID);
+        System.out.println(foundFriendship);
     }
 
     private void removeFriendshipUI() throws RepositoryException{
@@ -197,7 +228,7 @@ public class UserInterface {
         Friendship newFriendship = new Friendship(firstUser, secondUser);
         newFriendship.setId(friendshipID);
         controller.addFriendship(newFriendship);
-        System.out.println("Friendship added succesfully!");
+        System.out.println("Friendship added successfully!");
     }
 
     private void removeUserUI() throws RepositoryException {
@@ -219,14 +250,15 @@ public class UserInterface {
         User newUser = new User(lastname, surname, birthdate);
         newUser.setId(ID);
         controller.addUser(newUser);
-        System.out.println("User " + newUser + " added succesfully!");
+        System.out.println("User " + newUser + " added successfully!");
     }
 
     private void printUsersMenu() {
         System.out.println("1. Print users");
         System.out.println("2. Add user");
-        System.out.println("3. Delete user");
-        System.out.println("4. All Users with their Friends");
+        System.out.println("3. Search user");
+        System.out.println("4. Delete user");
+        System.out.println("5. All Users with their Friends");
         System.out.println("0. Back");
     }
 

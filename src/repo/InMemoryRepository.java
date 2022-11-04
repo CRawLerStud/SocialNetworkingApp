@@ -13,7 +13,7 @@ public abstract class InMemoryRepository<ID, E extends Entity<ID>> implements Re
     }
 
     /**
-     * Adds a entity in the repository
+     * Adds an entity in the repository
      * @param entity the entity that will be added
      * @throws RepositoryException <ul>
      *     <li>the entity is null</li>
@@ -30,7 +30,7 @@ public abstract class InMemoryRepository<ID, E extends Entity<ID>> implements Re
     }
 
     /**
-     * Removes a entity from the repository
+     * Removes an entity from the repository
      * @param id - the entity's id
      * @return the entity that was removed
      * @throws RepositoryException <ul>

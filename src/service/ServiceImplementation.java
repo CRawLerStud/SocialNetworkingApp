@@ -17,7 +17,7 @@ public class ServiceImplementation<ID, E extends Entity<ID>> implements Service<
     }
 
     /**
-     * Validates a entity and adds it in the repository
+     * Validates an entity and adds it in the repository
      * @param entity the entity that will be added
      * @throws RepositoryException if the entity is already in the repository
      * @throws ValidationException if the entity is not valid
@@ -29,7 +29,7 @@ public class ServiceImplementation<ID, E extends Entity<ID>> implements Service<
     }
 
     /**
-     * Remove a entity from the repository
+     * Remove an entity from the repository
      * @param id entity's id
      * @return the entity that was removed
      * @throws RepositoryException if the entity is not in the repository
@@ -40,7 +40,7 @@ public class ServiceImplementation<ID, E extends Entity<ID>> implements Service<
     }
 
     /**
-     * Search for a entity in the repository
+     * Search for an entity in the repository
      * @param id entity's id
      * @return the looked up entity
      * @throws RepositoryException if the entity is not in the repository
@@ -51,8 +51,8 @@ public class ServiceImplementation<ID, E extends Entity<ID>> implements Service<
     }
 
     /**
-     * Returns a iterable with all the users from the repository
-     * @return a iterable with all the users from the repository
+     * Returns an iterable with all the users from the repository
+     * @return an iterable with all the users from the repository
      */
     @Override
     public Iterable<E> findAll() {

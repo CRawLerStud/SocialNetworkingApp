@@ -17,12 +17,12 @@ import java.util.List;
 public class Controller {
 
     private final FriendshipService friendships;
-    private final String friendshipsFilename = "data/friendships.csv";
     private final UserService users;
 
     public Controller(FriendshipService friendships, UserService users) {
         this.friendships = friendships;
         this.users = users;
+        String friendshipsFilename = "data/friendships.csv";
         loadFriendshipsFile(friendshipsFilename);
     }
 
@@ -123,7 +123,7 @@ public class Controller {
     }
 
     /**
-     * Returns a iterable with all friendships
+     * Returns an iterable with all friendships
      * @return all friendships
      */
     public Iterable<Friendship> allFriendships(){

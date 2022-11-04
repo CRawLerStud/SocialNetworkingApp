@@ -45,7 +45,7 @@ public class User extends Entity<Long>{
     }
 
     /**
-     * Returns a iterable with all the user's friends
+     * Returns an iterable with all the user's friends
      * @return all the user's friends
      */
     public Iterable<User> allFriends(){
