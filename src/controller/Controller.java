@@ -68,10 +68,11 @@ public class Controller {
      * @throws RepositoryException if the user is not in the users' repository
      */
     public User removeUser(Long ID) throws RepositoryException{
-        User removedUser = users.findOne(ID);
-        friendships.removeUserFromFriends(removedUser);
+        User removedUser = users.delete(ID);
         friendships.removeUserFriendships(removedUser);
-        users.delete(ID);
+        System.out.println("Removed friendships");
+        friendships.removeUserFromFriends(removedUser);
+        System.out.println("Removed user from friends");
         return removedUser;
     }
 

@@ -2,7 +2,6 @@ package test;
 
 import models.Friendship;
 import models.User;
-import repo.Repository;
 import repo.RepositoryException;
 import repo.friendship.FriendshipRepository;
 import repo.users.UserFileRepository;

@@ -31,7 +31,7 @@ public abstract class InMemoryRepository<ID, E extends Entity<ID>> implements Re
 
     /**
      * Removes an entity from the repository
-     * @param id - the entity's id
+     * @param id  the entity's id
      * @return the entity that was removed
      * @throws RepositoryException <ul>
      *     <li>if the id is null</li>

@@ -5,6 +5,7 @@ import models.Friendship;
 import models.User;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class TestModelsLayer {
 
@@ -26,7 +27,7 @@ public class TestModelsLayer {
         Long ID = 1L;
         friendship.setId(ID);
 
-        assert(friendship.getId() == ID);
+        assert(Objects.equals(friendship.getId(), ID));
 
         assert(friendship.toString().equals("1;The user null Tofan Raul 20 years old;The user null Fron Mara 20 years old"));
 
@@ -41,7 +42,7 @@ public class TestModelsLayer {
         Long ID = 1L;
         user1.setId(ID);
 
-        assert(user1.getId() == ID);
+        assert(Objects.equals(user1.getId(), ID));
         assert(user1.getSurname().equals("Cristian Raul"));
         assert(user1.getLastname().equals("Tofan"));
         assert(user1.getYears() == 20);
@@ -69,9 +70,9 @@ public class TestModelsLayer {
         Entity<Long> entity = new Entity<>();
         Long ID = 123456L;
         entity.setId(ID);
-        assert(entity.getId() == ID);
+        assert(Objects.equals(entity.getId(), ID));
         ID = 345678L;
         entity.setId(ID);
-        assert(entity.getId() == ID);
+        assert(Objects.equals(entity.getId(), ID));
     }
 }
