@@ -7,6 +7,8 @@ import repo.RepositoryException;
 import repo.friendship.FriendshipRepository;
 import repo.users.UserFileRepository;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,6 +104,18 @@ public class TestRepoLayer {
     }
 
     private static void testUserRepository() {
+
+        try {
+            FileWriter fw = new FileWriter("src/test/testUsers.csv");
+
+            fw.write("");
+
+            fw.close();
+        }
+        catch(IOException e){
+            System.out.println("eroare la stergerea din fisier -test repo");
+        }
+
         UserFileRepository userRepository = new UserFileRepository("src/test/testUsers.csv");
 
         List<User> users = createUsers();

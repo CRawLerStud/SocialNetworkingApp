@@ -91,7 +91,7 @@ public class User extends Entity<Long>{
 
     @Override
     public String toString() {
-        return "The user " + this.getId() + " " + this.getLastname() + " " + this.getSurname() + " " + this.getYears() + " years old";
+        return this.getId() + ";" + this.getLastname() + ";" + this.getSurname() + ";" + this.getBirthDate().toString();
     }
 
     @Override

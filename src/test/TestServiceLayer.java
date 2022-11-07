@@ -11,6 +11,8 @@ import validators.FriendshipValidator;
 import validators.UserValidator;
 import validators.ValidationException;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class TestServiceLayer {
@@ -108,6 +110,17 @@ public class TestServiceLayer {
     }
 
     private static void testUserService() {
+
+        try {
+            FileWriter fw = new FileWriter("src/test/testUsers.csv");
+
+            fw.write("");
+
+            fw.close();
+        }
+        catch(IOException e){
+            System.out.println("eroare la stergerea din fisier -test repo");
+        }
 
         UserValidator validator = new UserValidator();
         UserFileRepository repository = new UserFileRepository("src/test/testUsers.csv");

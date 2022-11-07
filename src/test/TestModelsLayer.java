@@ -29,7 +29,7 @@ public class TestModelsLayer {
 
         assert(Objects.equals(friendship.getId(), ID));
 
-        assert(friendship.toString().equals("1;The user null Tofan Raul 20 years old;The user null Fron Mara 20 years old"));
+        assert(friendship.toString().equals("1;null;Tofan;Raul;2002-09-20;null;Fron;Mara;2002-08-03"));
 
         Friendship sameFriendship = new Friendship(friend2, friend2);
         sameFriendship.setId(ID);
@@ -58,7 +58,7 @@ public class TestModelsLayer {
         assert(user1.getSurname().equals(newSurname));
         assert(user1.getBirthDate().equals(newDate));
 
-        assert(user1.toString().equals("The user 1 Traian Vasile 48 years old"));
+        assert(user1.toString().equals("1;Traian;Vasile;1974-02-03"));
 
         User user2 = new User("Vasile", "Ionut", LocalDate.parse("2000-01-01"));
         user2.setId(ID);
