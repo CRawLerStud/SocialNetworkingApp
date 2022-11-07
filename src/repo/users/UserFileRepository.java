@@ -63,7 +63,7 @@ public class UserFileRepository extends InMemoryRepository<Long, User> {
             fw.close();
         }
         catch(IOException e){
-            System.err.println("Eroare la scrierea in fisier!");
+            System.err.println("Error while writing in the users' file!");
             e.printStackTrace();
         }
     }

@@ -1,5 +1,5 @@
 import controller.Controller;
-import repo.friendship.FriendshipRepository;
+import repo.friendship.FriendshipFileRepository;
 import repo.users.UserFileRepository;
 import service.*;
 import test.Test;
@@ -11,14 +11,13 @@ public class Main {
 
         Test.executeAll();
 
+        UserValidator userValidator = new UserValidator();
         UserFileRepository userRepository = new UserFileRepository("data/users.csv");
+        UserService userService = new UserService(userValidator, userRepository);
 
         FriendshipValidator friendshipValidator = new FriendshipValidator();
-        FriendshipRepository friendshipRepository = new FriendshipRepository();
+        FriendshipFileRepository friendshipRepository = new FriendshipFileRepository("data/friendships.csv");
         FriendshipService friendshipService = new FriendshipService(friendshipValidator, friendshipRepository);
-
-        UserValidator userValidator = new UserValidator();
-        UserService userService = new UserService(userValidator, userRepository);
 
         Controller controller = new Controller(friendshipService, userService);
 

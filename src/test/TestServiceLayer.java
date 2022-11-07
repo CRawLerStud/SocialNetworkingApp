@@ -3,7 +3,7 @@ package test;
 import models.Friendship;
 import models.User;
 import repo.RepositoryException;
-import repo.friendship.FriendshipRepository;
+import repo.friendship.FriendshipFileRepository;
 import repo.users.UserFileRepository;
 import service.FriendshipService;
 import service.UserService;
@@ -25,7 +25,7 @@ public class TestServiceLayer {
 
     private static void testFriendshipService() {
         FriendshipValidator validator = new FriendshipValidator();
-        FriendshipRepository repository = new FriendshipRepository();
+        FriendshipFileRepository repository = new FriendshipFileRepository("src/test/friendships.csv");
 
         FriendshipService service = new FriendshipService(validator, repository);
 

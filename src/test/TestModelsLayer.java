@@ -5,6 +5,7 @@ import models.Friendship;
 import models.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class TestModelsLayer {
@@ -19,6 +20,8 @@ public class TestModelsLayer {
     private static void testFriendship() {
         User friend1 = new User("Tofan", "Raul", LocalDate.parse("2002-09-20"));
         User friend2 = new User("Fron", "Mara", LocalDate.parse("2002-08-03"));
+        friend1.setId(1L);
+        friend2.setId(2L);
         Friendship friendship = new Friendship(friend1, friend2);
 
         assert(friendship.getUser1().getLastname().equals("Tofan"));
@@ -29,7 +32,9 @@ public class TestModelsLayer {
 
         assert(Objects.equals(friendship.getId(), ID));
 
-        assert(friendship.toString().equals("1;null;Tofan;Raul;2002-09-20;null;Fron;Mara;2002-08-03"));
+        LocalDateTime now = LocalDateTime.now();
+
+        assert (friendship.toString().equals("1;1;2;"+now));
 
         Friendship sameFriendship = new Friendship(friend2, friend2);
         sameFriendship.setId(ID);

@@ -2,15 +2,15 @@ package service;
 
 import models.Friendship;
 import models.User;
-import repo.friendship.FriendshipRepository;
+import repo.friendship.FriendshipFileRepository;
 import repo.RepositoryException;
 import validators.FriendshipValidator;
 
 public class FriendshipService extends ServiceImplementation<Long, Friendship>{
 
-    FriendshipRepository repository;
+    FriendshipFileRepository repository;
 
-    public FriendshipService(FriendshipValidator validator, FriendshipRepository repository) {
+    public FriendshipService(FriendshipValidator validator, FriendshipFileRepository repository) {
         super(validator, repository);
         this.repository = repository;
     }

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Controller {
@@ -41,12 +43,13 @@ public class Controller {
                 Long secondUserID = Long.parseLong(words[2]);
                 User user1 = users.findOne(firstUserID);
                 User user2 = users.findOne(secondUserID);
-                Friendship newFriendship = new Friendship(user1, user2);
+                LocalDateTime friendsFrom = LocalDateTime.parse(words[3]);
+                Friendship newFriendship = new Friendship(user1, user2, friendsFrom);
                 newFriendship.setId(ID);
                 friendships.save(newFriendship);
             }
         }
-        catch(IOException | RepositoryException | ValidationException e) {
+        catch(IOException | RepositoryException | ValidationException | DateTimeParseException e) {
             System.err.printf("Error while reading from friends file!\n%s\n", e.getMessage());
         }
     }
