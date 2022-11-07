@@ -2,7 +2,6 @@ package test;
 
 import models.Friendship;
 import models.User;
-import repo.Repository;
 import repo.RepositoryException;
 import repo.friendship.FriendshipRepository;
 import repo.users.UserFileRepository;
@@ -11,8 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class TestRepoLayer {

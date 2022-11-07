@@ -2,7 +2,6 @@ package test;
 
 import models.Friendship;
 import models.User;
-import repo.RepositoryException;
 import validators.FriendshipValidator;
 import validators.UserValidator;
 import validators.ValidationException;

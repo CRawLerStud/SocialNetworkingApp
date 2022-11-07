@@ -58,7 +58,7 @@ public class UserFileRepository extends InMemoryRepository<Long, User> {
             FileWriter fw = new FileWriter(filename);
             fw.write("");
             for (User user : this.findAll()) {
-                fw.append(user.toString() + "\n");
+                fw.append(user.toString()).append("\n");
             }
             fw.close();
         }
