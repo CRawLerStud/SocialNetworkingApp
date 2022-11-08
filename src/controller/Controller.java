@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -149,6 +150,42 @@ public class Controller {
      */
     public List<User> mostSociableCommunity(){
         return CommunityUtils.mostSociableCommunity(users.findAll());
+    }
+
+    public List<User> usersLastnameIs(String lastname){
+        return users.lastnameIs(lastname);
+    }
+
+    public List<User> usersSurnameIs(String surname){
+        return users.surnameIs(surname);
+    }
+
+    public List<User> usersFullnameIs(String lastname, String surname){
+        return users.fullnameIs(lastname, surname);
+    }
+
+    public List<User> usersLastnameStartsWith(String sequence){
+        return users.lastnameStartsWith(sequence);
+    }
+
+    public List<User> usersSurnameStartsWith(String sequence){
+        return users.surnameStartsWith(sequence);
+    }
+
+    public List<User> usersOlderThan(int minimumAge){
+        return users.usersOlderThan(minimumAge);
+    }
+
+    public User changeUserLastname(Long ID, String newLastname) throws RepositoryException, ValidationException{
+        return users.changeUserLastname(ID, newLastname);
+    }
+
+    public User changeUserSurname(Long ID, String newSurname) throws RepositoryException, ValidationException{
+        return users.changeUserSurname(ID, newSurname);
+    }
+
+    public User changeUserBirthdate(Long ID, LocalDate newBirthdate) throws RepositoryException, ValidationException{
+        return users.changeUserBirthdate(ID, newBirthdate);
     }
 
 }

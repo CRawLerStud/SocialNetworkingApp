@@ -10,7 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserFileRepository extends InMemoryRepository<Long, User> {
     private final String filename;
@@ -66,5 +68,77 @@ public class UserFileRepository extends InMemoryRepository<Long, User> {
             System.err.println("Error while writing in the users' file!");
             e.printStackTrace();
         }
+    }
+
+    public List<User> lastnameIs(String lastname){
+        List<User> result = new ArrayList<>();
+        for(User user : this.findAll()){
+            if(user.getLastname().equals(lastname))
+                result.add(user);
+        }
+        return result;
+    }
+
+    public List<User> surnameIs(String surname){
+        List<User> result = new ArrayList<>();
+        for(User user : this.findAll()){
+            if(user.getSurname().equals(surname))
+                result.add(user);
+        }
+        return result;
+    }
+
+    public List<User> fullnameIs(String lastname, String surname){
+        List<User> lastnameUsers = this.lastnameIs(lastname);
+        List<User> surnameUsers = this.surnameIs(surname);
+        return lastnameUsers.stream()
+                .distinct()
+                .filter(surnameUsers::contains)
+                .collect(Collectors.toList());
+    }
+
+    public List<User> lastnameStartsWith(String sequence){
+        List<User> result = new ArrayList<>();
+        for(User user : this.findAll())
+            if(user.getLastname().startsWith(sequence))
+                result.add(user);
+        return result;
+    }
+
+    public List<User> surnameStartsWith(String sequence){
+        List<User> result = new ArrayList<>();
+        for(User user : this.findAll())
+            if(user.getSurname().startsWith(sequence))
+                result.add(user);
+        return result;
+    }
+
+    public List<User> usersOlderThan(int minimumAge){
+        List<User> result = new ArrayList<>();
+        for(User user : this.findAll())
+            if(user.getYears() >= minimumAge)
+                result.add(user);
+        return result;
+    }
+
+    public User changeUserLastname(Long ID, String newLastname) throws RepositoryException{
+        User foundUser = this.findOne(ID);
+        foundUser.setLastname(newLastname);
+        writeToFile();
+        return foundUser;
+    }
+
+    public User changeUserSurname(Long ID, String newSurname) throws RepositoryException{
+        User foundUser = this.findOne(ID);
+        foundUser.setSurname(newSurname);
+        writeToFile();
+        return foundUser;
+    }
+
+    public User changeUserBirthday(Long ID, LocalDate newBirthDate) throws RepositoryException{
+        User foundUser = this.findOne(ID);
+        foundUser.setBirthDate(newBirthDate);
+        writeToFile();
+        return foundUser;
     }
 }

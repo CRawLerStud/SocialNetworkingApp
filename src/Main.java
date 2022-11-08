@@ -23,6 +23,6 @@ public class Main {
 
         UserInterface ui = new UserInterface(controller);
 
-        ui.mainMenu();
+        ui.execute("Leaving the app...");
     }
 }

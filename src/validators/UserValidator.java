@@ -24,6 +24,8 @@ public class UserValidator implements Validator<User>{
      * @throws ValidationException if the fullname is not valid.
      */
     private void validateName(String lastname, String surname) throws ValidationException {
+        if(lastname.length() == 0 || surname.length() == 0)
+            throw new ValidationException("Invalid name!");
         Pattern pattern = Pattern.compile("^[A-Z][A-Za-z ]+");
         Matcher matcher = pattern.matcher(lastname);
         if (!(matcher.matches()) && lastname.trim().length() > 0)

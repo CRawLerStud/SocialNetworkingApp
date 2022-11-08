@@ -22,7 +22,8 @@ public class TestModelsLayer {
         User friend2 = new User("Fron", "Mara", LocalDate.parse("2002-08-03"));
         friend1.setId(1L);
         friend2.setId(2L);
-        Friendship friendship = new Friendship(friend1, friend2);
+        LocalDateTime ldt;
+        Friendship friendship = new Friendship(friend1, friend2, ldt = LocalDateTime.now());
 
         assert(friendship.getUser1().getLastname().equals("Tofan"));
         assert(friendship.getUser2().getLastname().equals("Fron"));
@@ -32,9 +33,7 @@ public class TestModelsLayer {
 
         assert(Objects.equals(friendship.getId(), ID));
 
-        LocalDateTime now = LocalDateTime.now();
-
-        assert (friendship.toString().equals("1;1;2;"+now));
+        assert (friendship.toString().equals("1;1;2;" + ldt));
 
         Friendship sameFriendship = new Friendship(friend2, friend2);
         sameFriendship.setId(ID);

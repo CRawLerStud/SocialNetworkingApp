@@ -17,7 +17,35 @@ public class TestRepoLayer {
     public static void executeAll(){
         testUserRepository();
         testFriendshipRepository();
+        testFilterOperationsUserRepository();
+        testFriends();
         System.out.println("Repo Layer Tests passed succesfully...");
+    }
+
+    private static void testFriends() {
+
+        User user1 = new User("Tofan", "Cristian Raul", LocalDate.of(2002, 9, 20));
+        user1.setId(1L);
+
+        User user2 = new User("Tofan", "Mara Ilinca", LocalDate.of(2002, 8, 3));
+        user2.setId(2L);
+
+        try {
+            user1.addFriend(user2);
+            assert (user1.findFriend(2L) != null);
+        }
+        catch(RepositoryException r){
+            assert(false);
+        }
+
+        try{
+            User removedUser = user1.removeFriend(2L);
+            assert(removedUser.equals(user2));
+        }
+        catch(RepositoryException r){
+            assert(false);
+        }
+
     }
 
     private static void testFriendshipRepository() {
@@ -158,6 +186,76 @@ public class TestRepoLayer {
             assert(false);
         }
 
+    }
+
+    private static void testFilterOperationsUserRepository(){
+
+        UserFileRepository repository = new UserFileRepository("src/test/testUsersFilters.csv");
+
+        User user1 = new User("Tofan", "Cristian", LocalDate.parse("2002-09-20"));
+        user1.setId(1L);
+        User user2 = new User("Tofan", "Elena", LocalDate.parse("2008-02-06"));
+        user2.setId(2L);
+        User user3 = new User("Traian", "Cristian", LocalDate.parse("2006-03-15"));
+        user3.setId(3L);
+        User user4 = new User("Fron", "Mara", LocalDate.parse("2002-08-03"));
+        user4.setId(4L);
+        User user5 = new User("Fronea", "Maria", LocalDate.parse("1996-01-20"));
+        user5.setId(5L);
+
+
+        List<User> testSurnameIs = repository.surnameIs("Cristian");
+        assert(testSurnameIs.size() == 2);
+        assert(testSurnameIs.get(0).getSurname().equals("Cristian"));
+        assert(testSurnameIs.get(0).getLastname().equals("Tofan"));
+        assert(testSurnameIs.get(1).getSurname().equals("Cristian"));
+        assert(testSurnameIs.get(1).getLastname().equals("Traian"));
+
+        List<User> testLastnameIs = repository.lastnameIs("Tofan");
+        assert(testLastnameIs.size() == 2);
+        assert(testLastnameIs.get(0).getLastname().equals("Tofan"));
+        assert(testLastnameIs.get(1).getLastname().equals("Tofan"));
+
+        List<User> testFullnameIs = repository.fullnameIs("Tofan","Cristian");
+        assert(testFullnameIs.size() == 1);
+        assert(testFullnameIs.get(0).getLastname().equals("Tofan"));
+        assert(testFullnameIs.get(0).getSurname().equals("Cristian"));
+
+        List<User> testLastnameStartsWith = repository.lastnameStartsWith("Fron");
+        assert(testLastnameStartsWith.size() == 2);
+        assert(testLastnameStartsWith.get(0).equals(user4));
+        assert(testLastnameStartsWith.get(1).equals(user5));
+
+        List<User> testSurnameStartsWith = repository.surnameStartsWith("Mar");
+        assert(testSurnameStartsWith.size() == 2);
+        assert(testSurnameStartsWith.get(0).equals(user4));
+        assert(testSurnameStartsWith.get(1).equals(user5));
+
+        List<User> testUsersOlderThan = repository.usersOlderThan(18);
+        assert(testUsersOlderThan.size() == 3);
+        assert(testUsersOlderThan.get(0).equals(user1));
+        assert(testUsersOlderThan.get(1).equals(user4));
+        assert(testUsersOlderThan.get(2).equals(user5));
+
+        try {
+            User modifiedUser = repository.changeUserLastname(1L, "Tofanel");
+            assert (modifiedUser.getLastname().equals("Tofanel"));
+
+            repository.changeUserLastname(1L, "Tofan"); //reverse action for above
+
+            modifiedUser = repository.changeUserSurname(4L, "Mara Ilinca");
+            assert (modifiedUser.getSurname().equals("Mara Ilinca"));
+
+            repository.changeUserSurname(4L, "Mara"); //reverse action for above
+
+            modifiedUser = repository.changeUserBirthday(3L, LocalDate.parse("2000-01-01"));
+            assert (modifiedUser.getBirthDate().equals(LocalDate.parse("2000-01-01")));
+
+            repository.changeUserBirthday(3L, LocalDate.parse("2006-03-15")); //reverse action for above
+        }
+        catch(RepositoryException r){
+            assert(false);
+        }
     }
 
     private static List<User> createUsers() {

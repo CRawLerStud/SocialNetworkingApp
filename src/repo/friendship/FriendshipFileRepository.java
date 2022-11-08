@@ -6,7 +6,7 @@ import repo.RepositoryException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FriendshipFileRepository extends FriendshipRepository{
+public class FriendshipFileRepository extends FriendshipRepository {
 
     private final String filename;
 
